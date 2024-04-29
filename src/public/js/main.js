@@ -1,4 +1,8 @@
 const button = document.querySelector('.submit')
+const elements = {
+  divProductList: document.getElementById('productList'),
+  divProduct: document.querySelectorAll('.product'),
+}
 
 button.onclick = function (e) {
   e.preventDefault()
@@ -12,6 +16,14 @@ button.onclick = function (e) {
       const response = JSON.parse(xhr.responseText)
 
       console.log('dados:', response)
+
+      setTimeout(() => {
+        elements.divProductList.classList.add('show')
+      }, 1000)
+
+      setTimeout(() => {
+        elements.divProduct.classList.add('show')
+      }, 4000)
 
       const products = response
         .map(
