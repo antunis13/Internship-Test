@@ -32,6 +32,15 @@ nav {
   border: none;
   background-color: rgb(245, 191, 119);
 }
+span {
+  opacity: 0;
+  transition: ease-in-out 500ms;
+}
+span.error {
+  opacity: 1;
+  color: white;
+  margin-left: 10px;
+}
 
 .productList {
   padding: 10px;

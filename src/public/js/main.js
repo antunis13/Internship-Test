@@ -1,7 +1,25 @@
 const button = document.querySelector('.submit')
+
 const elements = {
   divProductList: document.getElementById('productList'),
   divProduct: document.querySelectorAll('.product'),
+  spanError: document.querySelector('span'),
+}
+
+const validateForm = (keyWord) => {
+  if (!keyWord) {
+    elements.spanError.classList.add('error')
+    return
+  } else {
+    elements.spanError.classList.remove('error')
+    setTimeout(() => {
+      elements.divProductList.classList.add('show')
+    }, 1000)
+
+    setTimeout(() => {
+      elements.divProduct.classList.add('show')
+    }, 4000)
+  }
 }
 
 button.onclick = function (e) {
@@ -16,14 +34,6 @@ button.onclick = function (e) {
       const response = JSON.parse(xhr.responseText)
 
       console.log('dados:', response)
-
-      setTimeout(() => {
-        elements.divProductList.classList.add('show')
-      }, 1000)
-
-      setTimeout(() => {
-        elements.divProduct.classList.add('show')
-      }, 4000)
 
       const products = response
         .map(
@@ -44,4 +54,5 @@ button.onclick = function (e) {
     }
   }
   xhr.send()
+  validateForm(keyWord)
 }
