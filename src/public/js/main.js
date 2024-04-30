@@ -35,20 +35,23 @@ button.onclick = function (e) {
 
       console.log('dados:', response)
 
-      const products = response
-        .map(
-          (product) => `
-        <div class="product">
-        <img src="${product.imgUrl}" alt="" class="imgUrl" />
-        <p class="title"> ${product.title}</p>
-        <p class="rating">${product.rating}</p>
-        <p class="viewNumbers">${product.reviews} avaliações</p>
-        </div>  
-        `
-        )
-        .join('')
-
-      elements.divProductList.innerHTML = products
+      if (response.message) {
+        elements.divProductList.innerHTML = `<p>Nenhum resultado encontrado para "${keyWord}".</p>`
+      } else {
+        const products = response
+          .map(
+            (product) => `
+            <div class="product">
+            <img src="${product.imgUrl}" alt="" class="imgUrl" />
+            <p class="title"> ${product.title}</p>
+            <p class="rating">${product.rating}</p>
+            <p class="viewNumbers">${product.reviews} avaliações</p>
+            </div>  
+          `
+          )
+          .join('')
+        elements.divProductList.innerHTML = products
+      }
     } else {
       console.log('erro na requisicao: ', xhr.status)
     }

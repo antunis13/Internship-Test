@@ -25,15 +25,25 @@ async function scrapeModel(keyWord) {
       const reviews = product.querySelector('.a-size-base')?.textContent.trim()
       const imgUrl = product.querySelector('.s-image')?.getAttribute('src')
 
-      scrapedData.push({
-        title,
-        imgUrl,
-        rating,
-        reviews,
-      })
+      if (rating && rating.toLowerCase().includes('estrela')) {
+        const onlyNumbersAndCommas = /^[0-9,]+$/.test(reviews)
+        if (onlyNumbersAndCommas) {
+          scrapedData.push({
+            title,
+            imgUrl,
+            rating,
+            reviews,
+          })
+        }
+      }
     })
-
-    return scrapedData
+    if (scrapedData.length > 0) {
+      return scrapedData
+    } else {
+      return {
+        message: 'Nenhum resultado encontrado para a palavra-chave fornecida.',
+      }
+    }
   } catch (error) {
     console.log('erro no model:', error)
     throw new Error('Erro ao acessar dados da Amazon')
